@@ -28,153 +28,205 @@ const getFilterStyle = (filter: string): React.CSSProperties => {
   }
 };
 
-const getStyleClasses = (style: string) => {
+interface StyleConfig {
+  container: React.CSSProperties;
+  photoWrapper: React.CSSProperties;
+  header: React.CSSProperties;
+  subheader: React.CSSProperties;
+  footer: React.CSSProperties;
+  footerEmoji: string;
+  footerDate: React.CSSProperties;
+}
+
+const getInlineStyles = (style: string): StyleConfig => {
+  const baseContainer: React.CSSProperties = {
+    width: '280px',
+    display: 'inline-block',
+    fontFamily: "'Quicksand', sans-serif",
+  };
+
+  const basePhoto: React.CSSProperties = {
+    marginBottom: '12px',
+    aspectRatio: '4/3',
+    overflow: 'hidden',
+  };
+
+  const baseHeader: React.CSSProperties = {
+    fontFamily: "'Pacifico', cursive",
+    textAlign: 'center',
+    marginBottom: '8px',
+  };
+
   switch (style) {
     case 'polaroid':
       return {
-        container: 'bg-white p-4 pb-16 shadow-frame',
-        photoWrapper: 'mb-3',
-        headerClass: 'font-display text-pink-deep text-2xl mb-2',
+        container: { ...baseContainer, background: '#ffffff', padding: '16px', paddingBottom: '64px', boxShadow: '0 10px 40px -10px rgba(219, 112, 147, 0.3)' },
+        photoWrapper: { ...basePhoto },
+        header: { ...baseHeader, color: '#be185d', fontSize: '24px' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#6b7280' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(251, 207, 232, 0.5)' },
         footerEmoji: '💘💋😍',
-        footerClass: 'border-t border-pink-200/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#6b7280' },
       };
     case 'film':
       return {
-        container: 'bg-gray-900 p-3 border-4 border-gray-800',
-        photoWrapper: 'mb-2 border-2 border-gray-700',
-        headerClass: 'font-mono text-amber-400 text-lg mb-2 tracking-widest',
+        container: { ...baseContainer, background: '#111827', padding: '12px', border: '4px solid #1f2937' },
+        photoWrapper: { ...basePhoto, border: '2px solid #374151' },
+        header: { ...baseHeader, fontFamily: 'monospace', color: '#fbbf24', fontSize: '18px', letterSpacing: '0.1em' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#9ca3af' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #374151' },
         footerEmoji: '🎬🎞️✨',
-        footerClass: 'border-t border-gray-700',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#9ca3af' },
       };
     case 'instagram':
       return {
-        container: 'bg-gradient-to-b from-purple-500 via-pink-500 to-orange-400 p-4',
-        photoWrapper: 'mb-3 rounded-lg overflow-hidden shadow-lg',
-        headerClass: 'font-sans text-white text-xl font-bold mb-2 drop-shadow-lg',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #a855f7, #ec4899, #f97316)', padding: '16px' },
+        photoWrapper: { ...basePhoto, borderRadius: '8px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)' },
+        header: { ...baseHeader, fontFamily: "'Quicksand', sans-serif", fontWeight: 700, color: '#ffffff', fontSize: '20px', textShadow: '0 2px 4px rgba(0,0,0,0.3)' },
+        subheader: { fontSize: '14px', opacity: 0.9, textAlign: 'center', color: '#ffffff' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.3)' },
         footerEmoji: '❤️🔥💯',
-        footerClass: 'border-t border-white/30',
+        footerDate: { fontSize: '12px', opacity: 0.8, color: '#ffffff' },
       };
     case 'scrapbook':
       return {
-        container: 'bg-amber-50 p-5 border-4 border-dashed border-pink-300 rotate-1',
-        photoWrapper: 'mb-3 -rotate-1 shadow-md border-4 border-white',
-        headerClass: 'font-display text-pink-deep text-2xl mb-2',
+        container: { ...baseContainer, background: '#fffbeb', padding: '20px', border: '4px dashed #f9a8d4', transform: 'rotate(1deg)' },
+        photoWrapper: { ...basePhoto, transform: 'rotate(-1deg)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '4px solid #ffffff' },
+        header: { ...baseHeader, color: '#be185d', fontSize: '24px' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#6b7280' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(249, 168, 212, 0.5)' },
         footerEmoji: '💕📌✂️',
-        footerClass: 'border-t border-pink-300/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#6b7280' },
       };
     case 'modern':
       return {
-        container: 'bg-white p-6 shadow-2xl',
-        photoWrapper: 'mb-4',
-        headerClass: 'font-sans text-gray-800 text-xl font-light tracking-wide mb-2',
+        container: { ...baseContainer, background: '#ffffff', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' },
+        photoWrapper: { ...basePhoto },
+        header: { ...baseHeader, fontFamily: "'Quicksand', sans-serif", fontWeight: 300, color: '#1f2937', fontSize: '20px', letterSpacing: '0.05em' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#6b7280' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #e5e7eb' },
         footerEmoji: '♡',
-        footerClass: 'border-t border-gray-200',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#6b7280' },
       };
     case 'retro':
       return {
-        container: 'bg-gradient-to-b from-yellow-200 via-pink-200 to-cyan-200 p-4 border-8 border-white',
-        photoWrapper: 'mb-3 border-4 border-white rotate-1',
-        headerClass: 'font-display text-purple-600 text-2xl mb-2 drop-shadow',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #fef08a, #fbcfe8, #a5f3fc)', padding: '16px', border: '8px solid #ffffff' },
+        photoWrapper: { ...basePhoto, border: '4px solid #ffffff', transform: 'rotate(1deg)' },
+        header: { ...baseHeader, color: '#9333ea', fontSize: '24px', textShadow: '1px 1px 2px rgba(0,0,0,0.1)' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#6b21a8' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.5)' },
         footerEmoji: '🌟⭐✨',
-        footerClass: 'border-t border-white/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#6b21a8' },
       };
     case 'kawaii':
       return {
-        container: 'bg-gradient-to-b from-pink-200 via-pink-100 to-white p-4 rounded-3xl border-4 border-pink-300',
-        photoWrapper: 'mb-3 rounded-2xl overflow-hidden border-4 border-white shadow-soft',
-        headerClass: 'font-display text-pink-hot text-2xl mb-2',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #fbcfe8, #fce7f3, #ffffff)', padding: '16px', borderRadius: '24px', border: '4px solid #f9a8d4' },
+        photoWrapper: { ...basePhoto, borderRadius: '16px', border: '4px solid #ffffff', boxShadow: '0 4px 20px -4px rgba(219, 112, 147, 0.2)' },
+        header: { ...baseHeader, color: '#ec4899', fontSize: '24px' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#be185d' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(249, 168, 212, 0.5)' },
         footerEmoji: '🌸💖🎀',
-        footerClass: 'border-t border-pink-300/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#be185d' },
       };
     case 'wedding':
       return {
-        container: 'bg-gradient-to-b from-white via-pink-50 to-white p-6 border-2 border-pink-200',
-        photoWrapper: 'mb-4 rounded-sm shadow-md',
-        headerClass: 'font-display text-pink-deep text-3xl mb-2 italic',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #ffffff, #fdf2f8, #ffffff)', padding: '24px', border: '2px solid #fbcfe8' },
+        photoWrapper: { ...basePhoto, borderRadius: '2px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' },
+        header: { ...baseHeader, color: '#be185d', fontSize: '28px', fontStyle: 'italic' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#9d174d' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(251, 207, 232, 0.5)' },
         footerEmoji: '💍👰🤵',
-        footerClass: 'border-t border-pink-200/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#9d174d' },
       };
     case 'neon':
       return {
-        container: 'bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900 p-4 border-2 border-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)]',
-        photoWrapper: 'mb-3 border-2 border-pink-500 shadow-[0_0_10px_rgba(255,0,128,0.6)]',
-        headerClass: 'font-mono text-cyan-400 text-xl mb-2 tracking-wider drop-shadow-[0_0_10px_rgba(0,255,255,0.8)]',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #111827, #581c87, #111827)', padding: '16px', border: '2px solid #22d3d1', boxShadow: '0 0 20px rgba(0,255,255,0.5)' },
+        photoWrapper: { ...basePhoto, border: '2px solid #ec4899', boxShadow: '0 0 10px rgba(255,0,128,0.6)' },
+        header: { ...baseHeader, fontFamily: 'monospace', color: '#22d3d1', fontSize: '20px', letterSpacing: '0.1em', textShadow: '0 0 10px rgba(0,255,255,0.8)' },
+        subheader: { fontSize: '14px', opacity: 0.9, textAlign: 'center', color: '#a5f3fc' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(34,211,209,0.5)' },
         footerEmoji: '🌃💜⚡',
-        footerClass: 'border-t border-cyan-500/50',
+        footerDate: { fontSize: '12px', opacity: 0.8, color: '#a5f3fc' },
       };
     case 'birthday':
       return {
-        container: 'bg-gradient-to-b from-yellow-300 via-pink-400 to-purple-500 p-4 border-4 border-yellow-400',
-        photoWrapper: 'mb-3 rounded-xl overflow-hidden border-4 border-white shadow-lg rotate-1',
-        headerClass: 'font-display text-white text-2xl mb-2 drop-shadow-lg',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #fde047, #f472b6, #a855f7)', padding: '16px', border: '4px solid #facc15' },
+        photoWrapper: { ...basePhoto, borderRadius: '12px', border: '4px solid #ffffff', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.2)', transform: 'rotate(1deg)' },
+        header: { ...baseHeader, color: '#ffffff', fontSize: '24px', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' },
+        subheader: { fontSize: '14px', opacity: 0.9, textAlign: 'center', color: '#ffffff' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.4)' },
         footerEmoji: '🎂🎈🎁',
-        footerClass: 'border-t border-white/40',
+        footerDate: { fontSize: '12px', opacity: 0.8, color: '#ffffff' },
       };
     case 'christmas':
       return {
-        container: 'bg-gradient-to-b from-red-600 via-green-700 to-red-600 p-4 border-4 border-yellow-400',
-        photoWrapper: 'mb-3 rounded-lg overflow-hidden border-4 border-white shadow-md',
-        headerClass: 'font-display text-yellow-300 text-2xl mb-2 drop-shadow-lg',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #dc2626, #15803d, #dc2626)', padding: '16px', border: '4px solid #facc15' },
+        photoWrapper: { ...basePhoto, borderRadius: '8px', border: '4px solid #ffffff', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' },
+        header: { ...baseHeader, color: '#fde047', fontSize: '24px', textShadow: '2px 2px 4px rgba(0,0,0,0.4)' },
+        subheader: { fontSize: '14px', opacity: 0.9, textAlign: 'center', color: '#fef9c3' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(250,204,21,0.5)' },
         footerEmoji: '🎄🎅❄️',
-        footerClass: 'border-t border-yellow-400/50',
+        footerDate: { fontSize: '12px', opacity: 0.8, color: '#fef9c3' },
       };
     case 'graduation':
       return {
-        container: 'bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900 p-4 border-4 border-yellow-500',
-        photoWrapper: 'mb-3 border-2 border-yellow-500/70 shadow-md',
-        headerClass: 'font-display text-yellow-400 text-2xl mb-2 drop-shadow',
+        container: { ...baseContainer, background: 'linear-gradient(to bottom, #1e3a8a, #1e40af, #1e3a8a)', padding: '16px', border: '4px solid #eab308' },
+        photoWrapper: { ...basePhoto, border: '2px solid rgba(234,179,8,0.7)', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' },
+        header: { ...baseHeader, color: '#facc15', fontSize: '24px', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' },
+        subheader: { fontSize: '14px', opacity: 0.9, textAlign: 'center', color: '#fef08a' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(234,179,8,0.4)' },
         footerEmoji: '🎓📜🎉',
-        footerClass: 'border-t border-yellow-500/40',
+        footerDate: { fontSize: '12px', opacity: 0.8, color: '#fef08a' },
       };
     default:
       return {
-        container: 'bg-white p-4 shadow-frame rounded-2xl',
-        photoWrapper: 'mb-3 rounded-xl overflow-hidden',
-        headerClass: 'font-display text-pink-deep text-2xl mb-2',
+        container: { ...baseContainer, background: '#ffffff', padding: '16px', borderRadius: '16px', boxShadow: '0 10px 40px -10px rgba(219, 112, 147, 0.3)' },
+        photoWrapper: { ...basePhoto, borderRadius: '12px', overflow: 'hidden' },
+        header: { ...baseHeader, color: '#be185d', fontSize: '24px' },
+        subheader: { fontSize: '14px', opacity: 0.8, textAlign: 'center', color: '#6b7280' },
+        footer: { textAlign: 'center', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(251, 207, 232, 0.5)' },
         footerEmoji: '💘💋😍',
-        footerClass: 'border-t border-pink-200/50',
+        footerDate: { fontSize: '12px', opacity: 0.7, color: '#6b7280' },
       };
   }
 };
 
 export const PhotoStrip = forwardRef<HTMLDivElement, PhotoStripProps>(
   ({ photos, style, filter, title, names, date }, ref) => {
-    const styleClasses = getStyleClasses(style);
+    const styles = getInlineStyles(style);
     const filterStyle = getFilterStyle(filter);
 
     return (
-      <div 
-        ref={ref}
-        className={`inline-block ${styleClasses.container}`}
-        style={{ width: '280px' }}
-      >
+      <div ref={ref} style={styles.container}>
         {/* Header */}
-        <div className="text-center mb-4">
-          <h2 className={styleClasses.headerClass}>{title}</h2>
-          <p className="text-sm opacity-80">{names}</p>
+        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+          <h2 style={styles.header}>{title}</h2>
+          <p style={styles.subheader}>{names}</p>
         </div>
 
         {/* Photos */}
-        <div className="space-y-3">
+        <div>
           {photos.map((photo, index) => (
-            <div 
-              key={index} 
-              className={`${styleClasses.photoWrapper} aspect-[4/3] overflow-hidden`}
-            >
+            <div key={index} style={styles.photoWrapper}>
               <img
                 src={photo}
                 alt={`Photo ${index + 1}`}
-                className="w-full h-full object-cover"
-                style={filterStyle}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  ...filterStyle,
+                }}
               />
             </div>
           ))}
         </div>
 
         {/* Footer */}
-        <div className={`text-center mt-4 pt-3 ${styleClasses.footerClass}`}>
-          <div className="text-lg mb-1">{styleClasses.footerEmoji}</div>
-          <p className="text-xs opacity-70">{date}</p>
+        <div style={styles.footer}>
+          <div style={{ fontSize: '18px', marginBottom: '4px' }}>{styles.footerEmoji}</div>
+          <p style={styles.footerDate}>{date}</p>
         </div>
       </div>
     );
