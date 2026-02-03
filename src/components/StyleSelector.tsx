@@ -8,11 +8,15 @@ const styles: StyleOption[] = [
   { id: 'polaroid', name: 'Polaroid', emoji: '📷' },
   { id: 'film', name: 'Film Strip', emoji: '🎞️' },
   { id: 'instagram', name: 'Instagram', emoji: '📱' },
-  { id: 'scrapbook', name: 'Scrapbook', emoji: '📔' },
-  { id: 'modern', name: 'Modern', emoji: '🖼️' },
-  { id: 'retro', name: 'Retro 90s', emoji: '🌈' },
   { id: 'kawaii', name: 'Kawaii', emoji: '🌸' },
   { id: 'wedding', name: 'Wedding', emoji: '💒' },
+  { id: 'neon', name: 'Cyberpunk', emoji: '🌃' },
+  { id: 'birthday', name: 'Birthday', emoji: '🎂' },
+  { id: 'christmas', name: 'Christmas', emoji: '🎄' },
+  { id: 'graduation', name: 'Graduation', emoji: '🎓' },
+  { id: 'retro', name: 'Retro 90s', emoji: '🌈' },
+  { id: 'scrapbook', name: 'Scrapbook', emoji: '📔' },
+  { id: 'modern', name: 'Modern', emoji: '🖼️' },
 ];
 
 interface StyleSelectorProps {
@@ -26,7 +30,7 @@ export const StyleSelector = ({ selected, onSelect }: StyleSelectorProps) => {
       <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
         <span>🎨</span> Strip Style
       </h3>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
         {styles.map((style) => (
           <button
             key={style.id}
