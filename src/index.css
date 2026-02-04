@@ -138,7 +138,7 @@
     width: 100%;
     height: 100%;
     background: var(--gradient-shimmer);
-    animation: shimmer 3s infinite;
+    animation: shimmer 4s infinite;
     pointer-events: none;
   }
 
@@ -152,10 +152,12 @@
     position: absolute;
     inset: 0;
     background: 
-      radial-gradient(ellipse 80% 50% at 20% 40%, hsla(340, 100%, 85%, 0.4) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 60%, hsla(340, 90%, 80%, 0.3) 0%, transparent 50%),
-      radial-gradient(ellipse 40% 30% at 40% 80%, hsla(350, 100%, 85%, 0.25) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 50% at 20% 40%, hsla(340, 100%, 85%, 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, hsla(340, 90%, 80%, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 35% at 40% 80%, hsla(350, 100%, 85%, 0.35) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 70% 20%, hsla(330, 100%, 88%, 0.3) 0%, transparent 50%);
     pointer-events: none;
+    animation: gradient-float 15s ease-in-out infinite;
   }
 
   .gradient-button {
@@ -197,6 +199,56 @@
     height: 3px;
     background: linear-gradient(90deg, transparent, hsl(340, 82%, 65%), transparent);
     border-radius: 2px;
+  }
+
+  .camera-frame {
+    position: relative;
+  }
+
+  .camera-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, hsla(340, 100%, 80%, 0.5), hsla(340, 100%, 60%, 0.3), hsla(340, 100%, 80%, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .flash-effect {
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,240,245,1) 50%, rgba(255,255,255,0.9) 100%);
+    animation: flash-bright 0.25s ease-out forwards;
+  }
+
+  .flash-glow {
+    background: radial-gradient(circle at center, rgba(255,182,193,0.6) 0%, transparent 70%);
+    animation: flash-glow 0.4s ease-out forwards;
+  }
+
+  .capture-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .capture-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+    border-radius: 50%;
+  }
+
+  .capture-button:hover::before {
+    width: 300px;
+    height: 300px;
   }
 }
 
@@ -246,6 +298,10 @@
   .hover-lift:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-elevated);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsla(340, 100%, 70%, 0.5), 0 0 40px hsla(340, 100%, 60%, 0.3);
   }
 }
 
@@ -320,19 +376,54 @@
   }
 }
 
+@keyframes flash-bright {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes flash-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @keyframes heart-float {
   0% {
-    transform: translateY(100vh) rotate(0deg);
+    transform: translateY(100vh) rotate(0deg) scale(0.8);
     opacity: 0;
   }
   10% {
     opacity: 1;
+    transform: translateY(80vh) rotate(45deg) scale(1);
+  }
+  50% {
+    transform: translateY(40vh) rotate(180deg) scale(1.1);
   }
   90% {
     opacity: 1;
+    transform: translateY(10vh) rotate(315deg) scale(1);
   }
   100% {
-    transform: translateY(-100px) rotate(720deg);
+    transform: translateY(-100px) rotate(360deg) scale(0.8);
     opacity: 0;
   }
 }
@@ -355,5 +446,14 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-float {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
   }
 }

@@ -7,9 +7,10 @@ interface Heart {
   delay: number;
   duration: number;
   emoji: string;
+  opacity: number;
 }
 
-const emojis = ['💕', '💖', '💗', '💘', '💝', '✨', '💋'];
+const emojis = ['💕', '💖', '💗', '💘', '💝', '✨', '💋', '🌸', '🎀', '💐', '🦋', '⭐'];
 
 export const FloatingHearts = () => {
   const [hearts, setHearts] = useState<Heart[]>([]);
@@ -19,10 +20,11 @@ export const FloatingHearts = () => {
       const newHeart: Heart = {
         id: Date.now() + Math.random(),
         left: Math.random() * 100,
-        size: Math.random() * 20 + 16,
+        size: Math.random() * 24 + 14,
         delay: Math.random() * 2,
-        duration: Math.random() * 4 + 4,
+        duration: Math.random() * 5 + 5,
         emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        opacity: Math.random() * 0.4 + 0.3,
       };
       
       setHearts(prev => [...prev, newHeart]);
@@ -32,11 +34,11 @@ export const FloatingHearts = () => {
       }, (newHeart.duration + newHeart.delay) * 1000);
     };
 
-    const interval = setInterval(createHeart, 800);
+    const interval = setInterval(createHeart, 600);
     
     // Create initial hearts
-    for (let i = 0; i < 5; i++) {
-      setTimeout(createHeart, i * 200);
+    for (let i = 0; i < 8; i++) {
+      setTimeout(createHeart, i * 150);
     }
 
     return () => clearInterval(interval);
@@ -54,6 +56,7 @@ export const FloatingHearts = () => {
             animationDuration: `${heart.duration}s`,
             animationDelay: `${heart.delay}s`,
             bottom: '-50px',
+            opacity: heart.opacity,
           }}
         >
           {heart.emoji}
