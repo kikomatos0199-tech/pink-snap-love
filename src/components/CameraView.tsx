@@ -113,9 +113,9 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
       }
       setCountdown(null);
 
-      // Flash effect
+      // Flash effect - enhanced with longer duration
       setShowFlash(true);
-      await new Promise(resolve => setTimeout(resolve, 150));
+      await new Promise(resolve => setTimeout(resolve, 250));
       setShowFlash(false);
 
       // Capture
@@ -151,7 +151,7 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
   return (
     <div className="relative">
       {/* Camera Frame */}
-      <div className="glass-card rounded-3xl p-3 overflow-hidden">
+      <div className="glass-card rounded-3xl p-3 overflow-hidden camera-frame">
         <div className="relative rounded-2xl overflow-hidden bg-black aspect-[4/3]">
           <video
             ref={videoRef}
@@ -167,27 +167,35 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
           
           {/* Countdown Overlay */}
           {countdown !== null && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-              <span className="text-9xl font-bold text-white animate-countdown drop-shadow-lg">
-                {countdown}
-              </span>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+              <div className="relative">
+                <span className="text-9xl font-bold text-white animate-countdown drop-shadow-lg">
+                  {countdown}
+                </span>
+                <div className="absolute inset-0 text-9xl font-bold text-pink-400 animate-ping opacity-30">
+                  {countdown}
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Flash Effect */}
+          {/* Enhanced Flash Effect */}
           {showFlash && (
-            <div className="absolute inset-0 bg-white animate-flash" />
+            <>
+              <div className="absolute inset-0 flash-effect" />
+              <div className="absolute inset-0 flash-glow" />
+            </>
           )}
 
           {/* Capture Progress */}
           {isCapturing && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 bg-black/30 px-4 py-2 rounded-full backdrop-blur-sm">
               {[0, 1, 2].map(i => (
                 <div
                   key={i}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-4 h-4 rounded-full transition-all duration-300 ${
                     i < capturedCount 
-                      ? 'bg-pink-hot scale-125' 
+                      ? 'bg-pink-hot scale-125 shadow-[0_0_10px_rgba(255,105,180,0.8)]' 
                       : 'bg-white/50'
                   }`}
                 />
@@ -195,9 +203,14 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
             </div>
           )}
 
-          {/* Corner Hearts */}
+          {/* Corner Decorations */}
           <div className="absolute top-3 left-3 text-2xl animate-pulse-soft">💕</div>
           <div className="absolute top-3 right-3 text-2xl animate-pulse-soft" style={{ animationDelay: '0.5s' }}>💖</div>
+          <div className="absolute bottom-3 left-3 text-xl opacity-70">✨</div>
+          <div className="absolute bottom-3 right-3 text-xl opacity-70">🌸</div>
+          
+          {/* Frame Border Glow */}
+          <div className="absolute inset-0 pointer-events-none rounded-2xl ring-2 ring-white/20 ring-inset" />
         </div>
       </div>
 
@@ -211,7 +224,7 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
           size="xl"
           onClick={startCapture}
           disabled={isCapturing || !stream}
-          className="group"
+          className="group capture-button"
         >
           {isCapturing ? (
             <>
@@ -222,7 +235,7 @@ export const CameraView = ({ onCapture, filter }: CameraViewProps) => {
             <>
               <Camera className="mr-2 group-hover:scale-110 transition-transform" />
               Take 3 Photos
-              <Heart className="ml-2 text-pink-200 group-hover:scale-125 transition-transform" />
+              <Heart className="ml-2 text-pink-200 group-hover:scale-125 transition-transform fill-current" />
             </>
           )}
         </Button>

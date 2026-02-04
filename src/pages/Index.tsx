@@ -6,7 +6,7 @@ import { FilterSelector } from '@/components/FilterSelector';
 import { StyleSelector } from '@/components/StyleSelector';
 import { NameEditor } from '@/components/NameEditor';
 import { Button } from '@/components/ui/button';
-import { Download, RotateCcw, Heart, Sparkles, Camera } from 'lucide-react';
+import { Download, RotateCcw, Heart, Sparkles, Camera, Stars } from 'lucide-react';
 import { usePhotoExport } from '@/hooks/usePhotoExport';
 
 const Index = () => {
@@ -40,25 +40,33 @@ const Index = () => {
     <div className="min-h-screen gradient-bg relative overflow-hidden">
       <FloatingHearts />
       
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 text-6xl opacity-20 animate-float pointer-events-none">💕</div>
-      <div className="absolute top-40 right-16 text-5xl opacity-15 animate-float-delayed pointer-events-none">✨</div>
-      <div className="absolute bottom-40 left-20 text-4xl opacity-20 animate-float pointer-events-none">🌸</div>
-      <div className="absolute bottom-20 right-10 text-5xl opacity-15 animate-float-delayed pointer-events-none">💖</div>
+      {/* Decorative Corner Elements */}
+      <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-pink-300/30 to-transparent rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-56 h-56 bg-gradient-to-bl from-pink-400/20 to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-pink-300/25 to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-tl from-pink-400/20 to-transparent rounded-full blur-3xl" />
+      
+      {/* Floating Decorative Emojis */}
+      <div className="absolute top-24 left-[5%] text-5xl opacity-30 animate-float pointer-events-none select-none">💕</div>
+      <div className="absolute top-32 right-[8%] text-4xl opacity-25 animate-float-delayed pointer-events-none select-none">✨</div>
+      <div className="absolute top-[45%] left-[3%] text-4xl opacity-20 animate-float pointer-events-none select-none">🌸</div>
+      <div className="absolute top-[40%] right-[5%] text-5xl opacity-20 animate-float-delayed pointer-events-none select-none">💖</div>
+      <div className="absolute bottom-32 left-[10%] text-3xl opacity-25 animate-float-delayed pointer-events-none select-none">🎀</div>
+      <div className="absolute bottom-24 right-[12%] text-4xl opacity-20 animate-float pointer-events-none select-none">💗</div>
       
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
-        <header className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-white/60">
-            <Sparkles className="w-4 h-4 text-pink-deep" />
-            <span className="text-sm font-medium text-pink-deep">Capture your sweetest moments</span>
-            <Sparkles className="w-4 h-4 text-pink-deep" />
+        <header className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-5 px-5 py-2.5 bg-white/50 backdrop-blur-md rounded-full border border-white/70 shadow-soft">
+            <Stars className="w-4 h-4 text-pink-deep animate-pulse-soft" />
+            <span className="text-sm font-semibold text-pink-deep">Capture your sweetest moments</span>
+            <Stars className="w-4 h-4 text-pink-deep animate-pulse-soft" />
           </div>
-          <h1 className="font-display text-5xl md:text-7xl title-gradient mb-3 drop-shadow-sm decorative-border pb-4">
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl title-gradient mb-4 drop-shadow-sm decorative-border pb-6 text-glow">
             Pink Photo Booth
           </h1>
-          <p className="text-lg text-muted-foreground flex items-center justify-center gap-3 mt-6">
+          <p className="text-lg text-muted-foreground flex items-center justify-center gap-3 mt-8">
             <Heart className="w-5 h-5 text-pink-rose fill-current animate-pulse-soft" />
             <span className="font-medium">Create beautiful memories together</span>
             <Heart className="w-5 h-5 text-pink-rose fill-current animate-pulse-soft" />
@@ -75,7 +83,11 @@ const Index = () => {
               </>
             ) : (
               <div className="glass-card rounded-3xl p-8 text-center hover-lift">
-                <div className="text-7xl mb-6 animate-pop">🎉</div>
+                <div className="relative inline-block">
+                  <div className="text-7xl mb-6 animate-pop">🎉</div>
+                  <div className="absolute -top-2 -right-2 text-3xl animate-bounce-soft">✨</div>
+                  <div className="absolute -top-2 -left-2 text-3xl animate-bounce-soft" style={{ animationDelay: '0.2s' }}>💖</div>
+                </div>
                 <h2 className="font-display text-3xl title-gradient mb-3">
                   Perfect Shots!
                 </h2>
@@ -116,6 +128,7 @@ const Index = () => {
               <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
                 <Camera className="w-4 h-4" />
                 <span>Preview</span>
+                <Sparkles className="w-3 h-3 text-pink-rose ml-auto" />
               </h3>
               
               <div className="flex justify-center">
@@ -132,12 +145,15 @@ const Index = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-[280px] aspect-[3/5] rounded-2xl border-2 border-dashed border-pink-300/60 flex flex-col items-center justify-center text-muted-foreground bg-gradient-to-b from-white/40 to-white/20">
+                  <div className="w-[280px] aspect-[3/5] rounded-2xl border-2 border-dashed border-pink-300/60 flex flex-col items-center justify-center text-muted-foreground bg-gradient-to-b from-white/50 to-white/20 relative overflow-hidden">
+                    {/* Decorative shimmer */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
+                    
                     <div className="text-6xl mb-4 animate-float">📷</div>
                     <p className="text-sm text-center px-6 font-medium">
                       Take photos to see your<br />photo strip preview here!
                     </p>
-                    <div className="flex gap-1 mt-4">
+                    <div className="flex gap-2 mt-5">
                       <span className="text-2xl animate-pulse-soft">💕</span>
                       <span className="text-2xl animate-pulse-soft" style={{ animationDelay: '0.2s' }}>💖</span>
                       <span className="text-2xl animate-pulse-soft" style={{ animationDelay: '0.4s' }}>💗</span>
@@ -160,16 +176,23 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <footer className="text-center mt-16 py-8 border-t border-pink-200/50">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="text-2xl">💘</span>
-            <span className="text-xl">💋</span>
-            <span className="text-2xl">😍</span>
+        <footer className="text-center mt-16 py-10 border-t border-pink-200/50 relative">
+          <div className="absolute left-1/2 -top-4 -translate-x-1/2 bg-background px-6">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">💕</span>
+              <span className="text-2xl">💖</span>
+              <span className="text-xl">💕</span>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground font-medium">
+          <div className="flex items-center justify-center gap-3 mb-4 mt-4">
+            <span className="text-2xl animate-pulse-soft">💘</span>
+            <span className="text-xl animate-pulse-soft" style={{ animationDelay: '0.15s' }}>💋</span>
+            <span className="text-2xl animate-pulse-soft" style={{ animationDelay: '0.3s' }}>😍</span>
+          </div>
+          <p className="text-sm text-muted-foreground font-semibold">
             Made with love • {currentDate}
           </p>
-          <p className="text-xs text-muted-foreground/60 mt-2">
+          <p className="text-xs text-muted-foreground/70 mt-2">
             Capture and share your favorite moments ✨
           </p>
         </footer>
