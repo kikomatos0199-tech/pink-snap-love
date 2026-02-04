@@ -45,21 +45,23 @@
     --pink-hot: 330 100% 60%;
     
     /* Gradients */
-    --gradient-main: linear-gradient(135deg, hsl(340, 100%, 95%) 0%, hsl(340, 80%, 85%) 50%, hsl(340, 70%, 80%) 100%);
-    --gradient-glass: linear-gradient(135deg, hsla(0, 0%, 100%, 0.6) 0%, hsla(0, 0%, 100%, 0.3) 100%);
+    --gradient-main: linear-gradient(135deg, hsl(340, 100%, 97%) 0%, hsl(340, 85%, 92%) 25%, hsl(340, 80%, 88%) 50%, hsl(340, 75%, 85%) 75%, hsl(340, 70%, 82%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(0, 0%, 100%, 0.7) 0%, hsla(0, 0%, 100%, 0.4) 100%);
     --gradient-button: linear-gradient(135deg, hsl(340, 82%, 65%) 0%, hsl(330, 100%, 60%) 100%);
     --gradient-frame: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(340, 30%, 97%) 100%);
+    --gradient-shimmer: linear-gradient(90deg, transparent 0%, hsla(340, 100%, 90%, 0.4) 50%, transparent 100%);
     
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsla(340, 80%, 50%, 0.2);
     --shadow-card: 0 8px 32px -8px hsla(340, 80%, 50%, 0.25);
     --shadow-frame: 0 10px 40px -10px hsla(340, 60%, 40%, 0.3);
     --shadow-glow: 0 0 40px hsla(340, 100%, 70%, 0.4);
+    --shadow-elevated: 0 20px 60px -15px hsla(340, 80%, 40%, 0.3);
 
     /* Glass effect */
-    --glass-bg: hsla(0, 0%, 100%, 0.5);
-    --glass-border: hsla(0, 0%, 100%, 0.6);
-    --glass-blur: 16px;
+    --glass-bg: hsla(0, 0%, 100%, 0.6);
+    --glass-border: hsla(0, 0%, 100%, 0.8);
+    --glass-blur: 20px;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -124,10 +126,36 @@
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shimmer);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
   }
 
   .gradient-bg {
     background: var(--gradient-main);
+    position: relative;
+  }
+
+  .gradient-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 40%, hsla(340, 100%, 85%, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, hsla(340, 90%, 80%, 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 40% 80%, hsla(350, 100%, 85%, 0.25) 0%, transparent 50%);
+    pointer-events: none;
   }
 
   .gradient-button {
@@ -142,6 +170,33 @@
 
   .glow-effect {
     box-shadow: var(--shadow-glow);
+  }
+
+  .elevated-card {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .title-gradient {
+    background: linear-gradient(135deg, hsl(340, 70%, 45%) 0%, hsl(340, 82%, 55%) 50%, hsl(330, 100%, 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .decorative-border {
+    position: relative;
+  }
+
+  .decorative-border::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, hsl(340, 82%, 65%), transparent);
+    border-radius: 2px;
   }
 }
 
@@ -177,6 +232,20 @@
 
   .animate-heart-float {
     animation: heart-float 4s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
   }
 }
 
@@ -265,5 +334,26 @@
   100% {
     transform: translateY(-100px) rotate(720deg);
     opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
